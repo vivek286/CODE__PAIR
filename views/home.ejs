@@ -1,0 +1,40 @@
+<body 
+    oninput="i.srcdoc=h.value+'<style>'+c.value+
+            '</style><script>'+j.value+'<\/script>'">
+    <style>
+        textarea,iframe{width:100%;height:50%}
+      
+        #htl,#cs,#js{width:33.0%;font-size:18; height: 47%;display: inline-block;}
+        #h,#c,#j{ background-color: black; color: white; width: 100%; height: 95%; }
+        .header{
+    background-color: grey;
+    color: white;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 5%;
+    text-align: center;
+    
+}
+#heading{background-color: red; height: 5%; text-align: center; font-weight: 800; color: white;}
+    </style>
+    <!-- <div id="heading">CODE STUDIO</div> -->
+    <div id="htl">
+      <div class="header">
+        HTML
+      </div>
+      <textarea  id=h></textarea>
+    </div>
+    <div id="cs">
+      <div class="header">
+        CSS
+      </div>
+      <textarea  id=c></textarea>
+    </div>
+    <div id="js">
+      <div class="header">
+        JAVASCRIPT
+      </div>
+    <textarea  id=j></textarea>
+    </div>
+    <iframe id=i>
