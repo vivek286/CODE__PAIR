@@ -1,4 +1,10 @@
-<body 
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+    </head>
+    <body 
     oninput="i.srcdoc=h.value+'<style>'+c.value+
             '</style><script></script>'">
     <style>
@@ -19,17 +25,18 @@
 #heading{background-color: red; height: 5%; text-align: center; font-weight: 800; color: white;}
     </style>
     <!-- <div id="heading">CODE STUDIO</div> -->
+    <!-- <div class="value"></div> -->
     <div id="htl">
       <div class="header">
         HTML
       </div>
-      <textarea  id=h></textarea>
+      <textarea  id=h onchange="CHANGE()"><%= html_data %></textarea>
     </div>
     <div id="cs">
       <div class="header">
         CSS
       </div>
-      <textarea  id=c></textarea>
+      <textarea  id=c onchange="CHANGE()"><%= css_data %></textarea>
     </div>
     <div id="js" style="background-color: purple;margin-top: -500px;">
       <div class="header">
@@ -38,3 +45,20 @@
     <textarea  id=j></textarea>
     </div> 
     <iframe id=i>
+        </iframe>
+    </body>
+    <script>
+       function CSS_CHANGE(dd){
+           css_data=dd;
+       }
+       function HTML_CHANGE(aa){
+           html_data=aa;
+       }
+        function CHANGE(){
+            css_data=dd;
+            html_data=aa;
+        }
+
+        
+    </script>
+</html>
