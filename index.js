@@ -3,6 +3,7 @@ const path=require('path');
 const port =8000;
 const app=express();
 app.set('view engine','ejs');
+app.use(express.urlencoded());
 app.set('views',path.join(__dirname,'views'));
 var projectdata=[
     {
@@ -17,7 +18,11 @@ app.get('/',function(req,res){
         project_data:projectdata,
         css_data:css,
         html_data:html});
-})
+});
+app.post('/add',function(req,data){
+    console.log(req);
+    return res.redirect('/');
+});
 
 
 
