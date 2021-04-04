@@ -1,12 +1,12 @@
 <html>
-    <head>
+    <head >
         <title>
             <%= title %>
         </title>
     </head>
-    <body 
+    <body
     oninput="i.srcdoc=h.value+'<style>'+c.value+
-            '</style><script></script>'">
+            '</style><script></script>'" >
     <style>
         textarea,iframe{width:100%;height:50%}
       
@@ -30,13 +30,13 @@
       <div class="header">
         HTML
       </div>
-      <textarea  id=h onchange="CHANGE()"><%= html_data %></textarea>
+      <textarea  id=h oninput="CHANGE()"><%= html_data %></textarea>
     </div>
     <div id="cs">
       <div class="header">
         CSS
       </div>
-      <textarea  id=c onchange="CHANGE()"><%= css_data %></textarea>
+      <textarea  id=c oninput="CHANGE()"><%=css_data%></textarea>
     </div>
     <div id="js" style="background-color: purple;margin-top: -500px;">
       <div class="header">
@@ -48,18 +48,31 @@
         </iframe>
     </body>
     <script>
-       function CSS_CHANGE(dd){
-           css_data=dd;
+        function print(){
+            console.log();
+            console.log(html_data);
+        }
+    //    function Load(){
+    //     document.getElementById("h") = html_data;
+    //     document.getElementById("incss").innerText = <css_data %> ;
+     
+    //     //    css_data=dd;
+    //    }
+       function CHANGE(){
+        // console.log(document.getElementById("c").innerText);
+        // console.log(c.value);
+        //  <%=css_data%>=c.value;
+        //  <%=html_data%>=c.value;
+       // console.log(<%=css_data%>);
        }
-       function HTML_CHANGE(aa){
-           html_data=aa;
-       }
-        function CHANGE(){
+        function C_HANGE(){
+
             var x = document.getElementById("c").value;
             var y = document.getElementById("h").value;
-            css_data=c;
-            html_data=y;
+            css_data =c;
+            html_data =y;
         }
+       
 
         
     </script>
