@@ -1,100 +1,104 @@
-const express = require('express');
-const env = require('./config/environment');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const app = express();
-const port = 8000;
-const expressLayouts = require('express-ejs-layouts');
-const db = require('./config/mongoose');
-// used for session cookie
-const session = require('express-session');
-const passport = require('passport');
-const passportLocal = require('./config/passport-local-strategy');
-const passportJWT = require('./config/passport-jwt-strategy');
-const passportGoogle = require('./config/passport-google-oauth2-strategy');
-
-const MongoStore = require('connect-mongo')(session);
-const sassMiddleware = require('node-sass-middleware');
-const flash = require('connect-flash');
-const customMware = require('./config/middleware');
-
-// setup the chat server to be used with socket.io
-const chatServer = require('http').Server(app);
-const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
-chatServer.listen(5000);
-console.log('chat server is listening on port 5000');
-const path = require('path');
-
-if (env.name == 'development'){
-    app.use(sassMiddleware({
-        src: path.join(__dirname, env.asset_path, 'scss'),
-        dest: path.join(__dirname, env.asset_path, 'css'),
-        debug: true,
-        outputStyle: 'extended',
-        prefix: '/css'
-    }));
-}
-
+const { response } = require('express');
+const express=require('express');
+const path=require('path');
+const port=8000;
+const db=require('./config/mongoose.js');
+const Contact=require('./models/contact.js');
+const app=express();
+app.set('view engine','ejs');
 app.use(express.urlencoded());
 
-app.use(cookieParser());
+// //middleware1
+// app.use(function(req,res,next){
+//     console.log('middleware1 is called');
+//     next(); 
+// });
+// // middleware 2
+// app.use(function(req,res,next){
+//     console.log('middleware2 called');
+//     next();
+// });     
 
-app.use(express.static(env.asset_path));
-// make the uploads path available to the browser
-app.use('/uploads', express.static(__dirname + '/uploads'));
-
-app.use(logger(env.morgan.mode, env.morgan.options));
-
-app.use(expressLayouts);
-// extract style and scripts from sub pages into the layout
-app.set('layout extractStyles', true);
-app.set('layout extractScripts', true);
-
-
-
-
-// set up the view engine
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-// mongo store is used to store the session cookie in the db
-app.use(session({
-    name: 'codeial',
-    // TODO change the secret before deployment in production mode
-    secret: env.session_cookie_key,
-    saveUninitialized: false,
-    resave: false,
-    cookie: {
-        maxAge: (1000 * 60 * 100)
-    },
-    store: new MongoStore(
-        {
-            mongooseConnection: db,
-            autoRemove: 'disabled'
-        
-        },
-        function(err){
-            console.log(err ||  'connect-mongodb setup ok');
+app.use(express.static('assets'));
+var contactList=[
+{
+    name: "vivek",
+    phone: "11111111"
+},
+{
+    name: "hello",
+    phone: "87635726"
+},
+{
+    name: "jaiho",
+    phone: "876543454"
+}
+]
+app.set('views',path.join(__dirname,'views'));
+// app.get('/profile',function(req,res){
+//    // console.log(__dirname);
+//     return res.render('home',{title: "My Contact List"});
+// });
+app.get('/',function(req,res){
+    Contact.find({},function(err,contacts){
+        if(err){ 
+            console.log('error in fetching contact fro db');
+            return;
         }
-    )
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(passport.setAuthenticatedUser);
-
-app.use(flash());
-app.use(customMware.setFlash);
-
-// use express router
-app.use('/', require('./routes'));
-
-
-app.listen(port, function(err){
-    if (err){
-        console.log(`Error in running the server: ${err}`);
-    }
-
-    console.log(`Server is running on port: ${port}`);
+        return res.render('home',{
+            title: "CONTACT LIST",
+            contact_list: contacts
+    });
+   
+    });
 });
+app.post('/create-contact',function(req ,res){
+
+// console.log(req.body);
+// contactList.push(
+//     {
+//         name: req.body.name,
+//         phone: req.body.phone
+//     }
+// );
+// EITHER THIS OR BELOW
+// contactList.push(req.body);
+//by using mongoose
+Contact.create({
+    name: req.body.name,
+    phone: req.body.phone
+},function(err,newContact){
+    if(err){console.log('error in creating contact');return;};
+    console.log('*******',newContact);
+    return res.redirect('/');
+});
+// return res.redirect('/');
+});
+app.get('/delete-contact',function(req,res){
+    // console.log(req.query);
+    //get id from query in the url
+    let id=req.query.id;
+    //find contact from database and delete it
+    Contact.findByIdAndDelete(id,function(err){
+        if(err){
+            console.log('error in deleting');
+            return;
+        }
+    })
+    // let contactindex=contactList.findIndex(contact=> contact.phone==phone);
+    // if(contactindex!=-1){
+    //     contactList.splice(contactindex,1);
+    // }
+     return res.redirect('back');
+});
+app.listen(port,function(err){
+    if(err){
+        console.log('error in running server',err);
+    }
+    console.log('express server is running ont port :',port);
+});
+
+function newFunction() {
+    return '/delete-contact';
+}
+  
