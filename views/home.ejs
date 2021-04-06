@@ -5,18 +5,12 @@
         </title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-  $("textarea").oninput(function(){
-    $.post("/add",
-    {
-      html: h.value,
-      css: c.value
-    },
-    function(data,status){
-      console.log("Data: " + data + "\nStatus: " + status);
-    });
+$("#c").oninput(function(){
+    $(<%= css_data%>).val(c.value);
   });
-});
+  $("#h").oninput(function(){
+    $(<%= html_data%>).val(h.value);
+  });
 </script>
     </head>
     <body
@@ -73,20 +67,20 @@ $(document).ready(function(){
      
     //     //    css_data=dd;
     //    }
-       function CHANGE(){
+      //  function CHANGE(){
         // console.log(document.getElementById("c").innerText);
         // console.log(c.value);
         //  <%=css_data%>=c.value;
         //  <%=html_data%>=c.value;
        // console.log(<%=css_data%>);
-       }
-        function C_HANGE(){
+      //  }
+        // function C_HANGE(){
 
-            var x = document.getElementById("c").value;
-            var y = document.getElementById("h").value;
-            css_data =c;
-            html_data =y;
-        }
+        //     var x = document.getElementById("c").value;
+        //     var y = document.getElementById("h").value;
+        //     css_data =c;
+        //     html_data =y;
+        // }
        
 
         
