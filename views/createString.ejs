@@ -1,0 +1,68 @@
+<!-- views/createString.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Creating Session</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script type="text/javascript" src="/js/functions.js"></script>
+    <link rel="stylesheet" type="text/css" href="/chat/animation.css">
+    <script src="http://127.0.0.1:8080/socket.io/socket.io.js"> </script>
+    <style>
+        body{ 
+            padding-top:80px;
+            background-image: url("https://pixabay.com/static/uploads/photo/2016/03/29/05/51/aztec-1287603_960_720.jpg");
+        }
+    </style>
+</head>
+<body>
+  <div id="x"><%= user.local.email %></div>
+
+
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1><span class="fa fa-plus"></span> Creating Session</h1>
+            <div class="sk-cube-grid">
+              <div class="sk-cube sk-cube1"></div>
+              <div class="sk-cube sk-cube2"></div>
+              <div class="sk-cube sk-cube3"></div>
+              <div class="sk-cube sk-cube4"></div>
+              <div class="sk-cube sk-cube5"></div>
+              <div class="sk-cube sk-cube6"></div>
+              <div class="sk-cube sk-cube7"></div>
+              <div class="sk-cube sk-cube8"></div>
+              <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+    </div>
+
+
+  <script>
+        var session;
+        session = createString();
+
+        var temp = document.getElementById("x");
+        var finishedEmail = temp.textContent;
+        console.log(finishedEmail);
+        console.log(session);
+        driverInit(finishedEmail);
+
+        setInterval(function(){  
+        
+
+        var url = window.location.href;
+        console.log(url);
+
+        var urlNew = url + "" + session;
+        console.log(urlNew);
+
+        window.location.href = urlNew;
+        //var link = "file:///C:/Users/Andrew/Desktop/CodePair/Editor/ace-builds-master/editor.html/"+ session;
+        //link.href = "C:/Users/Andrew/Desktop/CodePair/Editor/ace-builds-master/editor.html/" + session;
+        //location.replace(link);
+        //console.log(link);
+
+        }, 3500);
+  </script>
+</body>
+</html>

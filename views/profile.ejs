@@ -1,0 +1,85 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CodePair - Profile</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script type="text/javascript" src="/js/functions.js"></script>
+    <script src="http://127.0.0.1:8080/socket.io/socket.io.js"> </script>
+    <style>
+        body{ 
+            padding-top:80px;
+            background-image: url("https://pixabay.com/static/uploads/photo/2016/03/29/05/51/aztec-1287603_960_720.jpg");
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CodePair</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>Hi <x id="x"><%= user.local.email %></x></a></li>
+            <li><a href="/logout">Sign out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+</nav>
+
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-info"></span> User Information</h1>
+        <a href="/logout" class="btn btn-default btn-sm"><span class="fa fa-sign-out"></span> Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <strong>id</strong>: <px><%= user._id %></px><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %><br>
+                        <p></p>
+                        <a href="/logout" type="submit" onclick="deleteUser(finishedEmail)" class="btn btn-warning btn-md"><span class="fa fa-trash-o"></span> Delete User</a>
+                    
+
+            </div>
+        </div>
+
+        <!-- CREATE SESSION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-code"></span> Create Session</h3>
+
+                    <p>
+                        Create a session as a Driver by clicking the button below.
+                    </p>
+                    <a href="/DRIVER/" class="btn btn-success btn-md" role="button"><span class="fa fa-plus-circle"></span> Create Session</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var temp = document.getElementById("x");
+    var finishedEmail = temp.textContent;
+    console.log(finishedEmail);
+</script>
+</body>
+</html>

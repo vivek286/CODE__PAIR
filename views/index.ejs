@@ -1,0 +1,163 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CodePair</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"><!-- load fontawesome -->
+    <script type="text/javascript" src="/js/functions.js"></script>
+    <script src="http://127.0.0.1:8080/socket.io/socket.io.js"> </script>
+    <style type="text/css" media="screen">
+        body{ 
+            padding-top:80px;
+            background-image: url("https://pixabay.com/static/uploads/photo/2016/03/29/05/51/aztec-1287603_960_720.jpg");
+            //overflow: hidden;
+        }
+
+        #editor {
+        margin: 0;
+        position: relative;
+        height: 300px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><strong>CodePair</strong></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login">Sign in</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-file-text-o"></span> CodePair</h1>
+        <p>A Pair-Programming Web App designed for software dev on the go</p>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-lock"></span> Login</h1>
+
+        <p>Login or Register with:</p>
+
+        <a href="/login" class="btn btn-success"><span class="fa fa-user"></span> Login</a>
+        <a href="/signup" class="btn btn-success"><span class="fa fa-user"></span> Signup</a>
+
+        <!--<a href="/auth/github">Login with GitHub</a>-->
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="col-xs-12 col-md-12" >
+          <pre id="editor">This is the editor used by CodePair
+
+Its called ACE Editor
+
+An open-source code Editor
+
+If wish to take a look at the ACE documentation copy the below link:
+
+https://ace.c9.io
+</pre>
+    </div>
+
+</div><br>
+
+<div class="container">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse1"><span class="fa fa-info"></span> What is Pair Programming?</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">Pair Programming is an agile software development technique in which two programmers work together at one workstation. The two programmers are classified as a Driver or Navigator.</div>
+              </div>
+            </div>
+          </div><br>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapseX"><span class="fa fa-info"></span> What is CodePair?</a>
+                </h4>
+              </div>
+              <div id="collapseX" class="panel-collapse collapse">
+                <div class="panel-body">CodePair acts a virtual Workstation for Pair Programming. The two programmers can communicate through the chat bar. The Driver will create a session, and set who the navigator is by email, then link the session URL to the navigator, to begin the process. You must signup and be logged in to use CodePair! </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse2"><span class="fa fa-info"></span> What does the Driver do?</a>
+                </h4>
+              </div>
+              <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">The Driver writes code. CodePair provides a Code Editor for the Driver to provide code for a Navigator. The Driver can upload code, download code or download chat messages.</div>
+              </div>
+            </div>
+          </div><br>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse3"><span class="fa fa-info"></span> What does the Navigator do?</a>
+                </h4>
+              </div>
+              <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">The Navigator provides feeback on the code provided by the Navigator. To collaborate the feedback, the Navigator can use the chat bar to convey were the code could be changed or improved. </div>
+              </div>
+            </div>
+          </div><br>
+    </div>
+
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-github"></span> Want the Code?</h1>
+        <a href="https://github.com/Andy93/CodePair" class="btn btn-success"><span class="fa fa-github-square"></span> Github Repo</a>
+    </div>
+
+</div>
+
+
+<p>
+
+<script src="ace-builds-master/src-noconflict/ace.js" type="text/javascript" charset="utf-8"> </script>
+
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/text");
+</script>
+
+</body>
+</html>

@@ -15,19 +15,22 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB = require('./config/databases.js');
-
+var Smerver = require('socket.io');
 var fs = require('fs');
 var assert = require('assert');
 
 var	http = require('http').Server(app);
 var mongo = require('mongodb').MongoClient,
-	client = require('socket.io').listen(http).sockets;
+	// client = require('socket.io').listen(http).sockets;
+  
+client = require('socket.io')(http);
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
+// mongoose.connect('mongodb://localhost/27017');
 
  require('./config/passport')(passport); // pass passport for configuration
-
+ 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)

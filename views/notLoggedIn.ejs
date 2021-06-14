@@ -1,0 +1,49 @@
+<!-- views/notLoggedIn.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CodePair - Not Logged In</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"><!-- load fontawesome -->
+    <script type="text/javascript" src="/js/functions.js"></script>
+    <script src="http://127.0.0.1:8080/socket.io/socket.io.js"> </script>
+    <style type="text/css" media="screen">
+        body{ 
+            padding-top:80px;
+            background-image: url("https://pixabay.com/static/uploads/photo/2016/03/29/05/51/aztec-1287603_960_720.jpg");
+            //overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><strong>CodePair</strong></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login">Sign in</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1><span class="fa fa-exclamation-triangle"></span> Not Logged In</h1>
+            <a href="/login" class="btn btn-success"><span class="fa fa-backward"></span> Return</a>
+        </div>
+    </div>
+
+</body>
+</html>

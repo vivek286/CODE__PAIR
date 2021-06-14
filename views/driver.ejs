@@ -1,0 +1,340 @@
+<!-- views/driver.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CodePair - Driver</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/chat/chat.css">
+    <script type="text/javascript" src="/js/functions.js"></script>
+    <style>
+        body{ 
+            padding-top:80px;
+            background-image: url("https://pixabay.com/static/uploads/photo/2016/03/29/05/51/aztec-1287603_960_720.jpg");
+        }
+    
+    #aceEditor {
+        margin: 0;
+        position: relative;
+        height: 425px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+      <div class="row">
+          <div class="col-xs-4 col-md-4" >
+            <div class="btn-group">
+              <button type="button" id="themes" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Code Language <span class="caret"></span>
+              </button>
+              <ul id="themes" class="dropdown-menu">
+                <li><a onclick="changeMode('text')">Text</a></li>
+                <li><a onclick="changeMode('html')">HTML</a></li>
+                <li><a onclick="changeMode('css')">CSS</a></li>
+                <li><a onclick="changeMode('javascript')">JavaScript</a></li>
+                <li><a onclick="changeMode('java')">Java</a></li>
+                <li><a onclick="changeMode('python')">Python</a></li>
+                <li><a onclick="changeMode('sql')">SQL</a></li>
+                <li><a onclick="changeMode('csharp')">C#</a></li>
+                <li><a onclick="changeMode('c_cpp')">C++</a></li>
+                <li><a onclick="changeMode('php')">PHP</a></li>
+                <li><a onclick="changeMode('ruby')">Ruby</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4" >
+            <div class="btn-group">
+              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Editor Theme <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Light Themes</li>
+                <li><a onclick="changeTheme('eclipse')">Eclipse</a></li>
+                <li><a onclick="changeTheme('sqlserver')">SQL Server</a></li>
+                <li><a onclick="changeTheme('solarized_light')">Solarized Light</a></li>
+                <li><a onclick="changeTheme('kuroir')">Kuroir</a></li>
+                <li><a onclick="changeTheme('clouds')">Clouds</a></li>
+                <li class="dropdown-header">Dark Themes</li>
+                <li><a onclick="changeTheme('ambiance')">Ambiance</a></li>
+                <li><a onclick="changeTheme('clouds_midnight')">Clouds Midnight</a></li>
+                <li><a onclick="changeTheme('cobalt')">Cobalt</a></li>
+                <li><a onclick="changeTheme('terminal')">Terminal</a></li>
+                <li><a onclick="changeTheme('merbivore')">Merbivore</a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+</div>
+<p>
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CodePair</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>sessionID:</a></li>
+            <li><a id = sessionId> </a></li>
+            <li><a>Hi <x id="emailDriver"><%= user.local.email %></x></a></li>
+            <li><a href="/logout">Sign out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+</nav>
+
+<script src="http://127.0.0.1:8080/socket.io/socket.io.js"> </script>
+
+<div class="container">
+
+  <div class="row">
+
+      <div class="col-md-8">
+                <div id="aceEditor"></div>       
+      </div>
+
+      <div class="col-md-4 col-centered">
+        <div class="well">
+
+          <div class="chat">
+            <input type="text" class="chat-name" placeholder="Enter your name"></input>
+            <div class="chat-messages" id="chat-messages">
+
+            </div>
+            <textarea class="chat-textarea" placeholder="Type your message"></textarea>
+            <div class="chat-status">Status: <span>Idle</span></div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<p>
+<p>
+<div class="container">
+
+      <div class="row">
+        <div class="col-xs-4 col-md-4" >
+          <button onclick="grabCode()" class="btn btn-success" type="button">Download Code</button>
+        </div>
+        <div class="col-xs-4 col-md-4 form-group">
+        
+        </div>
+        <div class="col-xs-4 col-md-4">
+          <button onclick="grabChat()" class="btn btn-success" type="button">Download Chat</button>
+        </div>
+      </div>
+</div>
+
+<p>
+
+<div class="container">
+  <div class="row">
+
+          <div class="col-sm-6">
+              <div class="well">
+                  <h3><i><span class="fa fa-share" aria-hidden="true"></span></i> Add Navigator</h3>
+                  <div class="form-group">
+                    <form>
+                    <label for="email">Email of Navigator you want to Join Session:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Add Navigators Email so they can access the Session"><br>
+
+                    <button type="button" onclick="addNav()" class="btn btn-success">Add to Session</button><br>
+                    </form>
+                    <p>
+
+                    <p>Link to send to the User you want to be the Navigator: <h6 id="linkToNav"> </h6></p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+              <div class="well">
+                  <h3><i><span class="fa fa-upload" aria-hidden="true"></span></i> Upload File</h3>
+                  <div class="form-group">
+                    <label for="file-upload" color="white"></label>
+                    <input type="file" onclick="uploadFile()" id="file-upload"/>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<script src="/ace-builds-master/src-noconflict/ace.js" type="text/javascript" charset="utf-8"> </script>
+<script>
+// DATE----
+var d = new Date();
+console.log(d);
+//----------------------------------------
+
+var temp = document.getElementById("emailDriver");
+var finishedEmail = temp.textContent;
+console.log(finishedEmail);
+
+//----------------------------------------
+
+// GLOBAL VARIABLE FOR CODE DOWNLOAD;
+ var codeDownload = 'txt';
+
+// to get session Id ---------------------
+
+    var page = window.location;
+    console.log(page);
+
+    var array = page.pathname.split('/');
+    console.log(array);
+
+    var sessionId;
+    sessionId = array[2];
+    console.log(sessionId);
+
+    var session = sessionId;
+
+    document.getElementById("sessionId").innerHTML = sessionId;
+
+    var linkToSend = "http://localhost:8080/NAV/"+sessionId;
+    document.getElementById("linkToNav").innerHTML = linkToSend;
+//----------------------------------------
+
+    var theme = "terminal";
+
+    var driverEditor = ace.edit("aceEditor");
+    driverEditor.$blockScrolling = Infinity;
+
+    driverEditor.setTheme("ace/theme/"+theme);
+    driverEditor.session.setMode("ace/mode/javascript");
+
+    //sending code
+      driverEditor.on('change', function(obj) {
+        console.log(obj.action);
+        sendCode();
+        //setCode();
+      });
+
+// STRING FOR MESSAGES ---------------------
+var stringMessage= session+'\r\n' + '--------------------------'+'\r\n';
+
+//-----------------------------------------
+(function(){
+        var getNode = function(s){
+          return document.querySelector(s);
+        },
+
+        // Get required nodes
+        status = getNode('.chat-status span'),
+        messages = getNode('.chat-messages'),
+        textarea = getNode('.chat textarea'),
+        chatName = getNode('.chat-name'),
+
+        statusDefault = status.textContent,
+
+        setStatus = function(s) {
+          status.textContent = s;
+
+          if(s !== statusDefault){
+            var delay = setTimeout(function(){
+              setStatus(statusDefault);
+              clearInterval(delay);
+            }, 3000);
+          }
+        };
+
+        try{
+          var socket = io.connect('http://127.0.0.1:8080');
+        } catch(e){
+        // Set status to warn user
+        }
+
+        if(socket !== undefined){
+
+          socket.on('firstDriverCheck', function(data){
+            var result = data;
+            console.log(data);
+            if(result == "true"){
+              console.log("right person");
+              getCode();
+            }else{
+              console.log("wrong person");
+              window.location.href = "http://localhost:8080/NotDriver";
+            }
+          });
+
+          socket.on('initCodeDriver', function(data){
+            var result = data;
+            console.log(data);
+            driverEditor.session.setValue(data.code);
+          });
+
+          // Listen for output
+          socket.on('output', function(data){
+            if(data.length){
+              //loop through all data.
+                  for(var x=0; x<data.length; x=x+1){
+                    if(data[x].sessionId == sessionId){
+                      var message = document.createElement('div');
+                      message.setAttribute('class','chat-message');
+                      message.setAttribute('id','chat-message');
+                      message.textContent = data[x].name + ': ' + data[x].message;
+                      var chat_message = message.textContent;
+                      stringMessage = stringMessage + chat_message+'\r\n';
+
+                      //Append
+                      messages.insertBefore(message, messages.firstChild);
+                      messages.appendChild(message);
+                      messages.scrollTop = messages.scrollHeight;//(message, messages.firstChild);
+                    }
+                  }
+            }
+          });
+
+          // Listen for a status
+          socket.on('status', function(data) {
+            setStatus((typeof data === 'object') ? data.message : data);
+
+            if(data.clear === true){
+              textarea.value = '';
+            }
+          });
+
+          // Listen for keydown
+          textarea.addEventListener('keydown', function(event){
+            var self = this,
+              name = chatName.value;
+
+            console.log(event);
+            if(event.which === 13 && event.shiftKey === false){
+              socket.emit('input',{
+                name: name,
+                sessionId: sessionId,
+                message: self.value
+              });
+
+              event.preventDefault();
+            }
+          });
+        }
+      })();
+
+window.onload = function(){
+  checkDriver();
+  
+}
+
+</script>
+</body>
+</html>
