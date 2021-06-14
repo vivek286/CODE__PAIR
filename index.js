@@ -27,9 +27,9 @@ if(!module.parent){
     console.log('up and running');
   });
 }
-
+const dbName='codepair';
 var insertDocument = function(db, callback) {
-   db.collection('codepair').insertOne( {
+   db.collection(dbName).insertOne( {
       "testid" : "t1",
       "int" : "recr@example.com",
       "client" : "client@example.com",
@@ -45,11 +45,12 @@ var insertDocument = function(db, callback) {
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-
+//const dbName='code_pair';
 var url = 'mongodb://localhost:27017/foreignhires';
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url,{useUnifiedTopology: true }, function(err, db) {
   assert.equal(null, err);
   insertDocument(db, function() {
+    //const db = client.db(dbName);
       db.close();
   });
 });
