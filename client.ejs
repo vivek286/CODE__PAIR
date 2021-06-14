@@ -1,0 +1,46 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+
+<textarea rows="4" cols="50" id="recrcontent">
+Arpit
+</textarea>
+<textarea rows="4" cols="50"  id="clientcontent">
+At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. 
+</textarea>
+    
+
+    <!--<button id="refreshdata">Refresh</button>-->
+
+    <script>
+        $(function(){
+            var socket = io.connect('http://localhost:8089');
+            console.log("i m here");
+socket.emit('join', {email: "client@example.com"});
+socket.on("new_msg", function(data) {
+   console.log(data);
+   document.getElementById("recrcontent").value = data.msg;
+});
+    });
+        $( "#refreshdata" ).click(function() {
+  console.log( "Handler for .click() called." );
+  $.post("updateclientdata", { 
+  clientemailaddress:"client@example.com"
+})
+   
+.done(function( data ) {
+	  console.log("post request callback");
+});
+});
+    </script>
+</body>
+</html>
