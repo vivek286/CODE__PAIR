@@ -26,8 +26,8 @@ var mongo = require('mongodb').MongoClient,
 client = require('socket.io')(http);
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
-// mongoose.connect('mongodb://localhost/27017');
+// mongoose.connect(configDB.url); // connect to our database
+mongoose.connect('mongodb://localhost/27017');
 
  require('./config/passport')(passport); // pass passport for configuration
 

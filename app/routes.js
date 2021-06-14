@@ -129,11 +129,15 @@ module.exports = function(app, passport,mongo) {
     //var x = '+([A-Z])+([0-9])+([A-Z])+'
 
     app.get('/DRIVER/:id',isLoggedIn, function (req, res) {
-        mongo.connect(configDB.url, function(err, db){
+        mongo.connect(configDB.url, function(err, db1){
             if(err) throw err;
-            var col = db.collection('session');
-            col.findOne({sessionId:req.params.id}, function(err, document){
-                console.log(document);
+           // assert.equal(null, err);
+  console.log("Connected successfully to server");
+            // var col = db.collection('session');
+            var col=db1.db('session');
+            var temp=req.params.id;
+            col.collection('User').findOne({sessionId:req.params.id}, function(err, document){
+                console.log(document+' jai hind  '+temp);
                 if(document != null){
                     res.render('driver.ejs', {
                         user : req.user // get the user out of session and pass to template
@@ -150,10 +154,13 @@ module.exports = function(app, passport,mongo) {
     });
 
     app.get('/NAV/:id',isLoggedIn, function (req, res) {
-        mongo.connect(configDB.url, function(err, db){
+        mongo.connect(configDB.url, function(err, db1){
             if(err) throw err;
-            var col = db.collection('session');
-            col.findOne({sessionId:req.params.id}, function(err, document){
+            console.log('navigator_db running');
+            var col=db1.db('session');
+            var temp=req.params.id;
+            //var col = db.collection('session');
+            col.collections('User').findOne({sessionId:req.params.id}, function(err, document){
                 console.log(document);
                 if(document != null){
                     res.render('nav.ejs', {
