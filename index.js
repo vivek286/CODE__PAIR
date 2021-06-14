@@ -75,7 +75,7 @@ if(err){
     console.log('server socket is running on 8089');
 }
 })
-
+//mongo db is not working
 io.sockets.on('connection', function (socket) {
 	console.log("i am connected");
   socket.on('join', function (data) {
