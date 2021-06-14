@@ -30,7 +30,7 @@ mongoose.connect(configDB.url); // connect to our database
 // mongoose.connect('mongodb://localhost/27017');
 
  require('./config/passport')(passport); // pass passport for configuration
- 
+
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -249,7 +249,7 @@ mongo.connect(configDB.url, function(err, db){
 
 // launch ======================================================================
 http.listen(port);
-console.log('The magic happens on port ' + port);
+console.log('server running on ' + port);
 
 /*
 //console.log(document.NAVIGATORS);
