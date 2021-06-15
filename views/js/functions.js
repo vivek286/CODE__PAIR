@@ -244,6 +244,7 @@ function addNav(){
 
 // MODES & THEMES FOR DRIVER =========================================================================
 function changeMode(mode){
+  mode='text';
   driverEditor.session.setMode("ace/mode/"+mode);
   if(mode == 'text'){
     codeDownload = 'txt';

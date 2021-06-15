@@ -136,8 +136,10 @@ module.exports = function(app, passport,mongo) {
             // var col = db.collection('session');
             var col=db1.db('session');
             var temp=req.params.id;
-            col.collection('User').findOne({sessionId:req.params.id}, function(err, document){
+            // var col=db1.db('session');
+            col.collection('session').findOne({sessionId:req.params.id}, function(err, document){
                 console.log(document+' jai hind  '+temp);
+                document=temp;
                 if(document != null){
                     res.render('driver.ejs', {
                         user : req.user // get the user out of session and pass to template
@@ -160,8 +162,9 @@ module.exports = function(app, passport,mongo) {
             var col=db1.db('session');
             var temp=req.params.id;
             //var col = db.collection('session');
-            col.collections('User').findOne({sessionId:req.params.id}, function(err, document){
+            col.collections('session').findOne({sessionId:req.params.id}, function(err, document){
                 console.log(document);
+                document=temp;
                 if(document != null){
                     res.render('nav.ejs', {
                         user : req.user // get the user out of session and pass to template
